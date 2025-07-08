@@ -6,10 +6,13 @@ const cheerio = require('cheerio');
 const inquirer = require('inquirer'); // Changed from destructuring to import the whole object
 const keytar = require('keytar');
 const chalk = require('chalk');
+const dotenv = require('dotenv');
+
+dotenv.config();
 
 const program = new Command();
 
-const ROUTER_IP = 'http://192.168.1.1';
+const ROUTER_IP = process.env.ROUTER_IP;
 const SERVICE_NAME = 'vodafone-router-cli';
 const USERNAME_KEY = 'router_username';
 const PASSWORD_KEY = 'router_password';
@@ -252,8 +255,6 @@ program
     .command('login')
     .description('Logs into the vodafone router and securely saves the credentials')
     .action(async () => {
-        
-
         const answers = await inquirer.default.prompt([ // Corrected to inquirer.default.prompt
             {
                 type: 'password',
@@ -269,6 +270,7 @@ program
             }
         ]);
 
+        answers.password ||= process.env.ROUTER_PASSWORD;
         const { password, save } = answers;
 
         if (save) {
