@@ -266,7 +266,7 @@ program
                 type: 'confirm',
                 name: 'save',
                 message: 'Save password securely for future use?',
-                default: true
+                default: false
             }
         ]);
 

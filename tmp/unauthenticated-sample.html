@@ -1,0 +1,282 @@
+<html lang="en-us" class="">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="CSRFtoken" content="82f622a851b155f40d0560024d2a2013176f84b4d0c3df5746d745ffd7743f74">
+  <title>Gateways</title>
+  <link href="img/vdf-icon.png" type="/image/png" rel="icon">
+  <link href="img/vdf-icon.png" type="/image/png" rel="shortcut icon">
+  <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css?19.4.0551-3261161">
+  <link rel="stylesheet" type="text/css" href="/css/login.css?19.4.0551-3261161">
+  <link rel="stylesheet" type="text/css" href="/css/vodafoneFont.css?19.4.0551-3261161">
+  <script src="/js/main-min.js?19.4.0551-3261161"></script>
+  <script src="/js/srp-min.js?19.4.0551-3261161"></script>
+  <script>
+    var vdfVariant = "VF-UK";
+    var pageNavMode = "warningMsg";
+  </script>
+  <script src="/js/validator-min.js"></script>
+  <script src="/js/global-min.js?19.4.0551-3261161"></script>
+  <script type="text/javascript" src="js/footer.js?19.4.0551-3261161"></script>
+  <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+  <!--[if lt IE 9]>
+  <script src="/js/html5shiv.min.js?19.4.0551-3261161"></script>
+  <script src="/js/respond.min.js?19.4.0551-3261161"></script>
+  <![endif]-->
+  <script>
+    var variant = "VF-UK";
+    var lang_Check = languageType();
+    if ($("#navigation").html() != undefined) {
+      window.location = "/";
+    }
+    if (document.documentElement) {
+      var cn = document.documentElement.className;
+      document.documentElement.className = cn.replace(/no-js/, '');
+    }
+    var cookieCheck = function () {
+      var cookieEnabled = (navigator.cookieEnabled) ? true : false;
+      if (!cookieEnabled) {
+        $("#activation-content").css("display", "none");
+        $(".login-cookies-display").css("display", "block");
+      } else {
+        $("#activation-content").css("display", "block");
+        $(".login-cookies-display").css("display", "none");
+      }
+    }
+    $(function () {
+      $("#login-cookie-reconnect").click(function () {
+        cookieCheck();
+      });
+      cookieCheck();
+      var ms_ie = false;
+      var ua = window.navigator.userAgent;
+      if ((ua.indexOf('MSIE ') > -1) || (ua.indexOf('Trident/') > -1)) {
+        ms_ie = true;
+      }
+      if (ms_ie) {
+        var version = navigator.sayswho.split(" ");
+        if (version[1] == 9) {
+          $("#activation-content-left > img").css("left", "0");
+        }
+        if (version[1] < 9) {
+          $("#activation-content").css("display", "none");
+          $(".login-old-browsers").css("display", "block");
+        } else {
+          $("#activation-content").css("display", "block");
+          $(".login-old-browsers").css("display", "none");
+        }
+      }
+    });
+    navigator.sayswho = (function () {
+      var ua = navigator.userAgent, tem,
+        M = ua.match(/(opera|chrome|safari|firefox|msie|trident(?=\/))\/?\s*(\d+)/i) || [];
+      if (/trident/i.test(M[1])) {
+        tem = /\brv[ :]+(\d+)/g.exec(ua) || [];
+        return 'IE ' + (tem[1] || '');
+      }
+      if (M[1] === 'Chrome') {
+        tem = ua.match(/\b(OPR|Edge)\/(\d+)/);
+        if (tem != null) return tem.slice(1).join(' ').replace('OPR', 'Opera');
+      }
+      M = M[2] ? [M[1], M[2]] : [navigator.appName, navigator.appVersion, '-?'];
+      if ((tem = ua.match(/version\/(\d+)/i)) != null) M.splice(1, 1, tem[1]);
+      return M.join(' ');
+    })();
+  </script>
+</head>
+
+<body>
+  <form id="loginfrm">
+    <div class="vdf-row description">
+      <div class="left" style="display:none">
+        <input type="hidden" id="login-txt-uname" placeholder="Username" class="max4" value="vodafone"
+          autocomplete="off">
+      </div>
+      <div class="left" id="login-pass">
+        <input type="password" id="login-txt-pwd" class="max4" vox-text="" style="width: 290px;" autocomplete="off">
+        <span id="passwordInfoSpan">
+          <a href="#passwordInfo" data-target="#passwordInfo" data-toggle="modal" id="passwordInfoLinkVOX" class="">
+            <img id="passwordInfoIcon" src="img/look_4/icons/button-info-desktop.png" alt="">
+          </a>
+        </span>
+      </div>
+      <div class="left" vox-loginbtn=""><input class="button button-apply-wide button-apply" id="login-btn-logIn"
+          value="Log In" type="submit" autocomplete="off"></div>
+    </div>
+    <div class="vdf-row" style="display:none">
+      <div class="left"></div>
+      <div class="right" style="display:table-cell;text-align:right">
+        <input class="button button-cancel button-wide forgotten-password" id="start" value="Forgotten Password"
+          type="button" autocomplete="off">
+      </div>
+    </div>
+    <div class="horizontal-line" style="display:none;">
+      <hr>
+    </div>
+    <div class="row no-margin-left-right">
+      <div class="col-xs-12 col-md-12 col-sm-12 no-padding-left mobile-padding-top">
+        <div id="passwordIncorrectMsg" class="message message-error" style="display:none">
+          <span style="font-weight:" bold="">
+            Incorrect password. Please try again.
+          </span>
+        </div>
+      </div>
+    </div>
+  </form>
+
+
+  <script>
+    var sessionStatus = setInterval(getSessionStatus, 30000);
+    var variant = "VF-UK";
+    var vdf_logo = "false";
+    var noUserName = "true";
+    var sessionStatus = setInterval(getSessionStatus, 30000);
+    var time_count = "true";
+    function getSessionStatus() {
+      $.get("/login.lp", { getSessionStatus: true }, function (data) {
+        $('#footer-wanip').text(data.wanIPAddress); // Update footer WAN IP dynamically
+      });
+    }
+
+    $(document).ready(function () {
+      //Remove sessionstorage modeval data
+      sessionStorage.removeItem('modeVal');
+      $("#look_4_activation").removeClass("gateway-46");
+      if (vdf_logo) {
+        $("#look_4_activation").addClass("gateway-46");
+      }
+      // Save data to sessionStorage
+      sessionStorage.setItem('page_load_count', '0');
+      var isValid = null;
+      var form = $('form');
+      var submitButton = form.find('button[type="submit"]')
+      var saveButton = submitButton.filter('[name="login-btn-logIn"]');
+      var timeSecond, wrongPwdCount;
+      //submit form behavior
+      var timeInterval;
+      var submitForm = function (e) {
+        //prevent form from submitting valid or invalid
+        var srp = new SRP();
+        srp.success = function () {
+          // If we showed the login page using an internal redirect (detected
+          // by checking if the URL ends with "/login.lp") then we simply
+          // have to reload the page to get the actual page content now that
+          // we're logged in.
+          // Otherwise we explicitly go back to the main page.
+          $.get("login.lp", { action: "getLangCode" }, function (data) {
+            setCookie("webui_language", data, 30);
+            if (window.location.pathname.search(/\/login\.lp$/) == -1) {
+              var curl = window.location.href
+              window.location.href = curl.substring(0, curl.indexOf("#"));
+            } else {
+              window.location = "/";
+            }
+          });
+        };
+        srp.error_message = function (err) {
+          if (err == 403) {
+            $.get("login.lp", { action: "getcsrf" }, function (data) {
+              $('meta[name=CSRFtoken]').attr('content', data);
+              if (!$("#loginfailure").is(":visible")) {
+                srp.identify("/authenticate", $("#login-txt-uname")[0].value, $("#login-txt-pwd")[0].value);
+                $("#login-btn-logIn").attr("disabled", "false");
+              }
+            });
+          } else {
+            $('.message-error').show();
+            $('.horizontal-line').show();
+            if (noUserName) {
+              $("#WelcomeText").text('Enter your Vodafone Wi-Fi Hub password to manage your settings.');
+            }
+            timeSecond = err.waitTime;
+            wrongPwdCount = err.wrongCount;
+            if (timeSecond > 0) {
+              $("#timerSec, #vox-error-waitTime").text(timeSecond);
+              $("#pwdCount").text(wrongPwdCount);
+              if (noUserName) {
+                $(".login-div-hide").css("display", "none");
+                $(".error-div-vox").css("display", "block");
+              } else {
+                $('#loginfailure').modal('show');
+              }
+              clearInterval(timeInterval);
+              callTimer(timeSecond);
+            } else {
+              $("#login-btn-logIn").removeAttr("disabled");
+            }
+            $("#sign-me-in").text('Sign in');
+            $('#login-btn-logIn').parent().addClass("text-right");
+            $("#login-txt-uname, #login-txt-pwd").addClass("input-error");
+          }
+        }
+        function callTimer(timecount) {
+          timeInterval = setInterval(function () {
+            if (time_count) {
+              --timecount;
+              if (timecount > 0) {
+                $("#timerSec, #vox-error-waitTime").text(timecount);
+              }
+            }
+            else {
+              $("#timerSec, #vox-error-waitTime").text(--timecount);
+            }
+            if (timecount <= 0) {
+              clearInterval(timeInterval);
+              if (noUserName) {
+                $(".error-div-vox").css("display", "none");
+                $(".login-div-hide").css("display", "block");
+                $("#login-txt-pwd").removeClass("input-error");
+                $('.message-error').hide();
+                $('.horizontal-line').hide();
+              } else {
+                $('#loginfailure').modal('hide');
+              }
+              $("#login-btn-logIn").removeAttr("disabled");
+            }
+          }, 1000);
+        }
+        if (!$("#loginfailure").is(":visible")) {
+          srp.identify("/authenticate", $("#login-txt-uname")[0].value, $("#login-txt-pwd")[0].value);
+          $("#login-btn-logIn").attr("disabled", "false");
+        }
+        e.preventDefault();
+        //user clicked and the form was not valid
+        if (isValid === false) {
+          isValid = null;
+          return false;
+        }
+        //user pressed enter, process as if they clicked save instead
+        saveButton.trigger('click');
+      }
+      //override submit button behavior
+      var submitClick = function (e) {
+        //Test form validitiy (HTML5) and store it in a global variable so both functions can use it
+        isValid = form[0].checkValidity();
+        if (false === isValid) {
+          //allow the browser's default submit event behavior
+          return true;
+        }
+        //prevent default behavior
+        e.preventDefault();
+        //additional processing - $.ajax() etc
+      }
+      //override submit form event
+      form.submit(submitForm);
+      //override submit button click event
+      submitButton.click(submitClick);
+      // Add smooth scrolling to all links
+      $("html, body").animate({
+        scrollTop: 0
+      }, "slow");
+    });
+  </script>
+
+
+  <com-1password-notification></com-1password-notification>
+</body>
+
+</html>
